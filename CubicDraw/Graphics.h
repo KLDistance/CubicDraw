@@ -73,7 +73,7 @@ public:
 private:
 	DirectX::XMMATRIX projection;
 	DirectX::XMMATRIX camera;
-	bool imguiEnabled = false;
+	bool imguiEnabled = true;
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;
 #endif

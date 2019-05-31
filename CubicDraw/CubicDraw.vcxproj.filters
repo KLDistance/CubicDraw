@@ -16,7 +16,7 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{0355697a-80ae-4754-8bc5-2b2fd17ede24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="xlsOperations">
+    <Filter Include="OpenXLSX">
       <UniqueIdentifier>{2e56f747-fb94-429a-b82f-3aaf3d7e256b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -180,6 +180,156 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OpenXLSX\miniz.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\OpenXLSX.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\pugiconfig.hpp">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\pugixml.hpp">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLAbstractXMLFile_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLAppProperties_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCell.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCell_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCellFormats_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCellFormula_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCellRange.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCellRange_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCellReference.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCellReference_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCellType_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCellValue.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCellValue_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLChartsheet.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLChartsheet_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLColor_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLColumn.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLColumn_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLContentTypes_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLCoreProperties_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLDefinitions.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLDocument.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLDocument_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLEnums_impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLException.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLFont_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLRelationships_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLRow.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLRow_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLSharedStrings_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLSheet.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLSheet_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLStyles_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLTemplate_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLTokenizer_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLWorkbook.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLWorkbook_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLWorksheet.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLWorksheet_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\XLXml_Impl.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\ZipArchive.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\ZipEntry.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\ZipException.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenXLSX\Zippy.h">
+      <Filter>OpenXLSX</Filter>
+    </ClInclude>
+    <ClInclude Include="ExpandingImGui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lottery.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Graphics.cpp">
@@ -291,6 +441,117 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\pugixml.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLAbstractXMLFile_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLAppProperties_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCell.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCell_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCellFormats_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCellFormula_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCellRange.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCellRange_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCellReference.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCellReference_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCellValue.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCellValue_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLChartsheet.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLChartsheet_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLColor_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLColumn.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLColumn_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLContentTypes_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLCoreProperties_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLDocument.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLDocument_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLFont_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLRelationships_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLRow.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLRow_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLSharedStrings_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLSheet.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLSheet_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLStyles_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLTokenizer_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLWorkbook.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLWorkbook_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLWorksheet.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenXLSX\XLWorksheet_Impl.cpp">
+      <Filter>OpenXLSX</Filter>
+    </ClCompile>
+    <ClCompile Include="ExpandingImGui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lottery.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

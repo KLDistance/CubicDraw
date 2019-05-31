@@ -104,11 +104,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -126,11 +126,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpplatest</LanguageStandard>
@@ -161,6 +161,7 @@
     <ClInclude Include="DrawableBase.h" />
     <ClInclude Include="dxerr.h" />
     <ClInclude Include="DxgiInfoManager.h" />
+    <ClInclude Include="ExpandingImGui.h" />
     <ClInclude Include="GDIPlusManager.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GraphicsThrowMacros.h" />
@@ -177,7 +178,56 @@
     <ClInclude Include="IndexedTriangleList.h" />
     <ClInclude Include="InputLayout.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Lottery.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="OpenXLSX\miniz.h" />
+    <ClInclude Include="OpenXLSX\OpenXLSX.h" />
+    <ClInclude Include="OpenXLSX\pugiconfig.hpp" />
+    <ClInclude Include="OpenXLSX\pugixml.hpp" />
+    <ClInclude Include="OpenXLSX\XLAbstractXMLFile_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLAppProperties_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLCell.h" />
+    <ClInclude Include="OpenXLSX\XLCellFormats_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLCellFormula_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLCellRange.h" />
+    <ClInclude Include="OpenXLSX\XLCellRange_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLCellReference.h" />
+    <ClInclude Include="OpenXLSX\XLCellReference_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLCellType_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLCellValue.h" />
+    <ClInclude Include="OpenXLSX\XLCellValue_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLCell_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLChartsheet.h" />
+    <ClInclude Include="OpenXLSX\XLChartsheet_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLColor_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLColumn.h" />
+    <ClInclude Include="OpenXLSX\XLColumn_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLContentTypes_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLCoreProperties_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLDefinitions.h" />
+    <ClInclude Include="OpenXLSX\XLDocument.h" />
+    <ClInclude Include="OpenXLSX\XLDocument_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLEnums_impl.h" />
+    <ClInclude Include="OpenXLSX\XLException.h" />
+    <ClInclude Include="OpenXLSX\XLFont_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLRelationships_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLRow.h" />
+    <ClInclude Include="OpenXLSX\XLRow_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLSharedStrings_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLSheet.h" />
+    <ClInclude Include="OpenXLSX\XLSheet_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLStyles_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLTemplate_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLTokenizer_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLWorkbook.h" />
+    <ClInclude Include="OpenXLSX\XLWorkbook_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLWorksheet.h" />
+    <ClInclude Include="OpenXLSX\XLWorksheet_Impl.h" />
+    <ClInclude Include="OpenXLSX\XLXml_Impl.h" />
+    <ClInclude Include="OpenXLSX\ZipArchive.h" />
+    <ClInclude Include="OpenXLSX\ZipEntry.h" />
+    <ClInclude Include="OpenXLSX\ZipException.h" />
+    <ClInclude Include="OpenXLSX\Zippy.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PointLight.h" />
@@ -210,6 +260,7 @@
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="dxerr.cpp" />
     <ClCompile Include="DxgiInfoManager.cpp" />
+    <ClCompile Include="ExpandingImGui.cpp" />
     <ClCompile Include="GDIPlusManager.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="imgui.cpp" />
@@ -222,7 +273,43 @@
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="Lottery.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="OpenXLSX\pugixml.cpp" />
+    <ClCompile Include="OpenXLSX\XLAbstractXMLFile_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLAppProperties_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLCell.cpp" />
+    <ClCompile Include="OpenXLSX\XLCellFormats_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLCellFormula_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLCellRange.cpp" />
+    <ClCompile Include="OpenXLSX\XLCellRange_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLCellReference.cpp" />
+    <ClCompile Include="OpenXLSX\XLCellReference_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLCellValue.cpp" />
+    <ClCompile Include="OpenXLSX\XLCellValue_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLCell_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLChartsheet.cpp" />
+    <ClCompile Include="OpenXLSX\XLChartsheet_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLColor_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLColumn.cpp" />
+    <ClCompile Include="OpenXLSX\XLColumn_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLContentTypes_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLCoreProperties_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLDocument.cpp" />
+    <ClCompile Include="OpenXLSX\XLDocument_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLFont_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLRelationships_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLRow.cpp" />
+    <ClCompile Include="OpenXLSX\XLRow_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLSharedStrings_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLSheet.cpp" />
+    <ClCompile Include="OpenXLSX\XLSheet_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLStyles_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLTokenizer_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLWorkbook.cpp" />
+    <ClCompile Include="OpenXLSX\XLWorkbook_Impl.cpp" />
+    <ClCompile Include="OpenXLSX\XLWorksheet.cpp" />
+    <ClCompile Include="OpenXLSX\XLWorksheet_Impl.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Pyramid.cpp" />

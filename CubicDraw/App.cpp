@@ -24,7 +24,7 @@ App::App() : wnd(DISPLAY_SCREENWIDTH, DISPLAY_SCREENHEIGHT, "KLDistance Cubic Mu
 		std::uniform_real_distribution<float> rdist{ 6.0f, 20.0f };
 		std::uniform_real_distribution<float> bdist{ 0.4f, 3.0f };
 		std::uniform_real_distribution<float> cdist{ 0.0f, 1.0f };
-		std::uniform_int_distribution<int> tdist{ 4, 4 };
+		std::uniform_int_distribution<int> tdist{ 4, 8 };
 	public:
 		Factory(Graphics &gfx) : gfx(gfx) {}
 		std::unique_ptr<Drawable> operator()()
@@ -57,45 +57,131 @@ App::App() : wnd(DISPLAY_SCREENWIDTH, DISPLAY_SCREENHEIGHT, "KLDistance Cubic Mu
 
 int App::Go()
 {
+	// start sub thread for loading resources
+	this->hLoadingThread = ::CreateThread(0, 0, App::LoadingThread, this, 0, 0);
 	MSG msg = { 0 };
+	// intro loop
 	while (true)
 	{
 		if (const auto ecode = Window::ProcessMessages()) return *ecode;
-		this->DoFrame();
+		if(this->Intro()) break;
+	}
+	// thread joint
+	::WaitForSingleObject(this->hLoadingThread, INFINITE);
+	// lottery loop
+	while (true)
+	{
+		if (const auto ecode = Window::ProcessMessages()) return *ecode;
+		this->Lottery();
 	}
 	return 0;
 }
 
-void App::DoFrame()
+void App::SetKeyState(int input_state)
+{
+	this->state = input_state;
+}
+
+int App::Intro()
+{
+	return 1;
+}
+
+void App::Lottery()
 {
 	const auto dt = timer.Mark() * this->speed_factor;
 	this->wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
-	this->cam.SetCameraIncrement(dt * 0.7f);
-	this->wnd.Gfx().SetCamera(this->cam.GetMatrix());
-	//this->light.LightColor(0.1f, 0.1f, 0.1f);
-	this->light.LightMotion(dt);
-	this->light.Bind(this->wnd.Gfx(), this->cam.GetMatrix());
-
-	for (auto &d : drawables)
-	{
-		d->Update(dt);
-		d->Draw(this->wnd.Gfx());
-	}
-	this->light.Draw(this->wnd.Gfx());
 
 	// imgui window to control simulation speed
-	if (wnd.Gfx().IsImguiEnabled() && ImGui::Begin("Simulation Speed"))
+	switch (this->state)
 	{
-		ImGui::SliderFloat("Speed Factor", &this->speed_factor, 0.0f, 6.0f, "%.4f", 3.2f);
-		ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-		ImGui::Text("Status: %s", wnd.kbd.KeyIsPressed(VK_SPACE) ? "PAUSED" : "RUNNING (hold spacebar to pause)");
-		ImGui::End();
+	case 0:
+	{
+		this->cam.SetCameraIncrement(dt * 0.7f);
+		this->wnd.Gfx().SetCamera(this->cam.GetMatrix());
+		this->light.LightMotion(dt);
+		this->light.Bind(this->wnd.Gfx(), this->cam.GetMatrix());
 
-		// imgui window to set camera and light
-		this->cam.SpawnControlWindow();
-		this->light.SpawnControlWindow();
+		for (auto &d : drawables)
+		{
+			d->Update(dt);
+			d->Draw(this->wnd.Gfx());
+		}
+		this->light.Draw(this->wnd.Gfx());
+		break;
+	}
+	case 1:
+	{
+		this->cam.SetCameraIncrement(dt * 0.7f);
+		this->wnd.Gfx().SetCamera(this->cam.GetMatrix());
+		//this->light.LightColor(0.1f, 0.1f, 0.1f);
+		this->light.LightMotion(dt);
+		this->light.Bind(this->wnd.Gfx(), this->cam.GetMatrix());
+
+		for (auto &d : drawables)
+		{
+			d->Update(dt);
+			d->Draw(this->wnd.Gfx());
+		}
+		this->light.Draw(this->wnd.Gfx());
+		break;
+	}
+	case 2:
+	{
+		this->cam.SetCameraIncrement(dt * 0.7f);
+		this->wnd.Gfx().SetCamera(this->cam.GetMatrix());
+		this->light.LightMotion(dt);
+		this->light.Bind(this->wnd.Gfx(), this->cam.GetMatrix());
+
+		for (auto &d : drawables)
+		{
+			d->Update(dt);
+			d->Draw(this->wnd.Gfx());
+		}
+		this->light.Draw(this->wnd.Gfx());
+
+		// font display
+		if (wnd.Gfx().IsImguiEnabled())
+		{
+			this->expandingImGui->TriggerCenterImGui(this->nameList[0]);
+		}
+		break;
+	}
 	}
 
-
 	wnd.Gfx().EndFrame();
+}
+
+DWORD __stdcall App::LoadingThread(LPVOID lpParameters)
+{
+	App *pApp = (App*)lpParameters;
+	// loading fonts
+	pApp->expandingImGui = new ExpandingImGui();
+	// loading staff and students
+	OpenXLSX::XLDocument xlsxDoc;
+	xlsxDoc.OpenDocument("WorkBooks\\NameTest.xlsx");
+	auto sheet = xlsxDoc.Workbook().Worksheet("Sheet1");
+	size_t rowNum = sheet.RowCount();
+
+	/*
+	// create new work book for sequence storage in case of interrupts
+	OpenXLSX::XLDocument xlsxDocOutCache;
+	xlsxDocOutCache.CreateDocument("NameTest_Cache.xlsx");
+	auto sheetCache = xlsxDocOutCache.Workbook().Worksheet("Sheet1");
+	*/
+	pApp->nameList.resize(rowNum);
+	// load sequence
+	for (size_t i = 0; i < rowNum; i++)
+	{
+		std::ostringstream oss;
+		oss << "A" << i + 1;
+		pApp->nameList[i] = sheet.Cell(oss.str()).Value().Get<std::string>();
+	}
+	// generate random sequence
+	srand(time(nullptr));
+	for (int i = rowNum - 1; i >= 0; i--)
+	{
+		std::swap(pApp->nameList[rand() % (i + 1)], pApp->nameList[i]);
+	}
+	return 0;
 }
