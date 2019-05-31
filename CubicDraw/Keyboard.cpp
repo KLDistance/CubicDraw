@@ -74,6 +74,11 @@ BOOL Keyboard::AutorepeatIsEnabled() const noexcept
 	return this->autorepeatEnabled;
 }
 
+void Keyboard::ClearKeyState() noexcept
+{
+	this->ClearState();
+}
+
 void Keyboard::OnKeyPressed(unsigned char keycode) noexcept
 {
 	this->keystates[keycode] = TRUE;

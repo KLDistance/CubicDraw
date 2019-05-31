@@ -10,49 +10,48 @@ namespace dx = DirectX;
 
 GDIPlusManager gdipm;
 
-App::App() : wnd(DISPLAY_SCREENWIDTH, DISPLAY_SCREENHEIGHT, "KLDistance Cubic Mushrooms"), light(wnd.Gfx())
+class Factory
 {
-	class Factory
+private:
+	Graphics &gfx;
+	std::mt19937 rng{ std::random_device{}() };
+	std::uniform_int_distribution<int> sdist{ 0,1 };
+	std::uniform_real_distribution<float> adist{ 0.0f, PI * 2.0f };
+	std::uniform_real_distribution<float> ddist{ 0.0f, PI * 0.5f };
+	std::uniform_real_distribution<float> odist{ 0.0f, PI * 0.08f };
+	std::uniform_real_distribution<float> rdist{ 6.0f, 20.0f };
+	std::uniform_real_distribution<float> bdist{ 0.4f, 3.0f };
+	std::uniform_real_distribution<float> cdist{ 0.0f, 1.0f };
+	std::uniform_int_distribution<int> tdist{ 4, 8 };
+public:
+	Factory(Graphics &gfx) : gfx(gfx) {}
+	std::unique_ptr<Drawable> operator()()
 	{
-	private:
-		Graphics &gfx;
-		std::mt19937 rng{ std::random_device{}() };
-		std::uniform_int_distribution<int> sdist{ 0,1 };
-		std::uniform_real_distribution<float> adist{ 0.0f, PI * 2.0f };
-		std::uniform_real_distribution<float> ddist{ 0.0f, PI * 0.5f };
-		std::uniform_real_distribution<float> odist{ 0.0f, PI * 0.08f };
-		std::uniform_real_distribution<float> rdist{ 6.0f, 20.0f };
-		std::uniform_real_distribution<float> bdist{ 0.4f, 3.0f };
-		std::uniform_real_distribution<float> cdist{ 0.0f, 1.0f };
-		std::uniform_int_distribution<int> tdist{ 4, 8 };
-	public:
-		Factory(Graphics &gfx) : gfx(gfx) {}
-		std::unique_ptr<Drawable> operator()()
+		const DirectX::XMFLOAT3 mat = { cdist(rng), cdist(rng), cdist(rng) };
+		// for artistic style, use cubes only
+		switch (0)
 		{
-			const DirectX::XMFLOAT3 mat = { cdist(rng), cdist(rng), cdist(rng) };
-			// for artistic style, use cubes only
-			switch (0)
-			{
-			case 0:
-				return std::make_unique<Box>(
-					this->gfx, this->rng, this->adist, this->ddist,
-					this->odist, this->rdist, this->bdist, mat
-					);
-			case 1:
-				return std::make_unique<Cylinder>(
-					this->gfx, this->rng, this->adist, this->ddist, this->odist,
-					this->rdist, this->bdist, this->tdist
-					);
-			default:
-				assert(false && "impossible drawable option in factory");
-				return {};
-			}
+		case 0:
+			return std::make_unique<Box>(
+				this->gfx, this->rng, this->adist, this->ddist,
+				this->odist, this->rdist, this->bdist, mat
+				);
+		case 1:
+			return std::make_unique<Cylinder>(
+				this->gfx, this->rng, this->adist, this->ddist, this->odist,
+				this->rdist, this->bdist, this->tdist
+				);
+		default:
+			assert(false && "impossible drawable option in factory");
+			return {};
 		}
-	};
+	}
+};
 
-	drawables.reserve(nDrawables);
-	std::generate_n(std::back_inserter(drawables), nDrawables, Factory{ this->wnd.Gfx() });
-	this->wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+App::App() : wnd(DISPLAY_SCREENWIDTH, DISPLAY_SCREENHEIGHT, "KLDistance Cubic Mushrooms"), light(wnd.Gfx())
+{	
+	// load logos
+
 }
 
 int App::Go()
@@ -64,57 +63,54 @@ int App::Go()
 	while (true)
 	{
 		if (const auto ecode = Window::ProcessMessages()) return *ecode;
-		if(this->Intro()) break;
+		if(this->IntroPart()) break;
 	}
 	// thread joint
 	::WaitForSingleObject(this->hLoadingThread, INFINITE);
+	// refresh all the timers
+	this->timer.Mark();
+	this->runtimer.Mark();
 	// lottery loop
 	while (true)
 	{
 		if (const auto ecode = Window::ProcessMessages()) return *ecode;
-		this->Lottery();
+		this->LotteryPart();
 	}
 	return 0;
 }
 
-void App::SetKeyState(int input_state)
+int App::IntroPart()
 {
-	this->state = input_state;
-}
+	this->wnd.Gfx().BeginFrame(0.0f, 0.0f, 0.0f);
+	// here to display logos
 
-int App::Intro()
-{
+	this->expandingImGui->TriggerCenterImGui("", 0);
+	wnd.Gfx().EndFrame();
 	return 1;
 }
 
-void App::Lottery()
+void App::LotteryPart()
 {
 	const auto dt = timer.Mark() * this->speed_factor;
-	this->wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
 
 	// imgui window to control simulation speed
 	switch (this->state)
 	{
 	case 0:
 	{
-		this->cam.SetCameraIncrement(dt * 0.7f);
-		this->wnd.Gfx().SetCamera(this->cam.GetMatrix());
-		this->light.LightMotion(dt);
-		this->light.Bind(this->wnd.Gfx(), this->cam.GetMatrix());
-
-		for (auto &d : drawables)
+		this->wnd.Gfx().BeginFrame(0.0f, 0.0f, 0.0f);
+		if (this->runtimer.Peek() >= this->transitionBlankTiming)
 		{
-			d->Update(dt);
-			d->Draw(this->wnd.Gfx());
+			this->state = 1;
+			this->runtimer.Mark();
 		}
-		this->light.Draw(this->wnd.Gfx());
-		break;
+		this->expandingImGui->TriggerCenterImGui("", 0);
 	}
 	case 1:
 	{
+		this->wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
 		this->cam.SetCameraIncrement(dt * 0.7f);
 		this->wnd.Gfx().SetCamera(this->cam.GetMatrix());
-		//this->light.LightColor(0.1f, 0.1f, 0.1f);
 		this->light.LightMotion(dt);
 		this->light.Bind(this->wnd.Gfx(), this->cam.GetMatrix());
 
@@ -124,10 +120,58 @@ void App::Lottery()
 			d->Draw(this->wnd.Gfx());
 		}
 		this->light.Draw(this->wnd.Gfx());
+		if (this->wnd.kbd.KeyIsPressed(VK_SPACE))
+		{
+			this->state = 2;
+			this->tmpName = this->lottMachine->GetNextName();
+			this->wnd.kbd.ClearKeyState();
+		}
+		this->expandingImGui->TriggerCenterImGui("", 0);
 		break;
 	}
 	case 2:
 	{
+		this->wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
+		this->cam.SetCameraIncrement(dt * 0.7f * this->accelerate);
+		this->wnd.Gfx().SetCamera(this->cam.GetMatrix());
+		//this->light.LightColor(0.1f, 0.1f, 0.1f);
+		this->light.LightMotion(dt * this->accelerate);
+		this->light.Bind(this->wnd.Gfx(), this->cam.GetMatrix());
+
+		for (auto &d : drawables)
+		{
+			d->Update(dt * this->accelerate);
+			d->Draw(this->wnd.Gfx());
+		}
+		this->light.Draw(this->wnd.Gfx());
+
+		// increment beyond max
+		if (this->accelerate > this->accelerateMax)
+		{
+			this->accelerate = this->accelerateMax + 0.001f; // tolerant error
+			this->accelerateIncrement = 0.0f;
+		}
+		else
+		{
+			runtimer.Mark();
+		}
+		if (runtimer.Peek() >= this->ElapseMs)
+		{
+			this->accelerateIncrement = -this->accelerateIncrementConst;
+		}
+		// decrement beyond min
+		if (this->accelerate <= this->accelerateMin)
+		{
+			this->accelerateIncrement = this->accelerateIncrementConst;
+			this->state = 3;
+		}
+		this->accelerate += this->accelerateIncrement;
+		this->expandingImGui->TriggerCenterImGui("", 0);
+		break;
+	}
+	case 3:
+	{
+		this->wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
 		this->cam.SetCameraIncrement(dt * 0.7f);
 		this->wnd.Gfx().SetCamera(this->cam.GetMatrix());
 		this->light.LightMotion(dt);
@@ -141,9 +185,13 @@ void App::Lottery()
 		this->light.Draw(this->wnd.Gfx());
 
 		// font display
-		if (wnd.Gfx().IsImguiEnabled())
+		this->expandingImGui->TriggerCenterImGui(this->tmpName, 1);
+
+		// exit font display
+		if (this->wnd.kbd.KeyIsPressed(VK_SPACE))
 		{
-			this->expandingImGui->TriggerCenterImGui(this->nameList[0]);
+			this->state = 0;
+			this->wnd.kbd.ClearKeyState();
 		}
 		break;
 	}
@@ -155,33 +203,16 @@ void App::Lottery()
 DWORD __stdcall App::LoadingThread(LPVOID lpParameters)
 {
 	App *pApp = (App*)lpParameters;
+
+	// loading dx and objects
+	pApp->drawables.reserve(nDrawables);
+	std::generate_n(std::back_inserter(pApp->drawables), nDrawables, Factory{ pApp->wnd.Gfx() });
+	pApp->wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+	pApp->wnd.kbd.DisableAutorepeat();
 	// loading fonts
 	pApp->expandingImGui = new ExpandingImGui();
-	// loading staff and students
-	OpenXLSX::XLDocument xlsxDoc;
-	xlsxDoc.OpenDocument("WorkBooks\\NameTest.xlsx");
-	auto sheet = xlsxDoc.Workbook().Worksheet("Sheet1");
-	size_t rowNum = sheet.RowCount();
-
-	/*
-	// create new work book for sequence storage in case of interrupts
-	OpenXLSX::XLDocument xlsxDocOutCache;
-	xlsxDocOutCache.CreateDocument("NameTest_Cache.xlsx");
-	auto sheetCache = xlsxDocOutCache.Workbook().Worksheet("Sheet1");
-	*/
-	pApp->nameList.resize(rowNum);
-	// load sequence
-	for (size_t i = 0; i < rowNum; i++)
-	{
-		std::ostringstream oss;
-		oss << "A" << i + 1;
-		pApp->nameList[i] = sheet.Cell(oss.str()).Value().Get<std::string>();
-	}
-	// generate random sequence
-	srand(time(nullptr));
-	for (int i = rowNum - 1; i >= 0; i--)
-	{
-		std::swap(pApp->nameList[rand() % (i + 1)], pApp->nameList[i]);
-	}
+	// loading lottery
+	pApp->lottMachine = new Lottery("WorkBooks\\NameTest.xlsx");
+	
 	return 0;
 }

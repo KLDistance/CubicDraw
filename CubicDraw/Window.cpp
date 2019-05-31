@@ -138,11 +138,7 @@ LRESULT Window::HandleMsg(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		break;
 	// keyboard messages handling start
 	case WM_KEYDOWN:
-	case WM_SYSKEYDOWN:
-		if (imio.WantCaptureKeyboard)
-		{
-			break;
-		}
+	//case WM_SYSKEYDOWN:
 		if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled())
 		{
 			this->kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
@@ -150,10 +146,6 @@ LRESULT Window::HandleMsg(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		break;
 	case WM_KEYUP:
 	case WM_SYSKEYUP:
-		if (imio.WantCaptureKeyboard)
-		{
-			break;
-		}
 		this->kbd.OnKeyReleased(static_cast<unsigned char>(lParam));
 		break;
 	case WM_CHAR:
@@ -167,10 +159,13 @@ LRESULT Window::HandleMsg(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	// mouse messages handling start
 	case WM_MOUSEMOVE:
 	{
+		// disable the ImGui mouse capture
+		/*
 		if (imio.WantCaptureMouse)
 		{
 			break;
 		}
+		*/
 		const POINTS pt = MAKEPOINTS(lParam);
 		// in client region -> log move, and log enter + capture mouse
 		if (pt.x >= 0 && pt.x < this->width && pt.y >= 0 && pt.y < this->height)

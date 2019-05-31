@@ -23,5 +23,5 @@ private:
 	void FontCenterAlignment(UINT str_len);
 public:
 	ExpandingImGui();
-	void TriggerCenterImGui(std::string contents);
+	void TriggerCenterImGui(std::string contents, UINT isTrigger);
 };
