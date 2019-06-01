@@ -52,6 +52,7 @@
 #include <minwindef.h>
 #include <assert.h>
 #include <Wininet.h>
+#include <wincodec.h>
 #include <ShlObj.h>
 #include <stdio.h>
 #include <sal.h>
@@ -121,11 +122,18 @@
 #include <dxgidebug.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#include "Dependencies//Include//D3DX11.h"
 
 // include libraries of DirectX11
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "D3DCompiler.lib")
+
+#if defined (_WIN64)
+#pragma comment(lib, "Dependencies//Lib//x64//d3dx11.lib")
+#elif defined (_WIN32)
+#pragma comment(lib, "Dependencies//Lib//x86//d3dx11.lib")
+#endif
 
 #endif
 

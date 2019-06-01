@@ -2,6 +2,7 @@
 #include "Dependencies.h"
 #include "WinException.h"
 #include "DxgiInfoManager.h"
+#include <d2d1.h>
 
 class Graphics
 {
@@ -77,6 +78,7 @@ private:
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;
 #endif
+public:
 	Microsoft::WRL::ComPtr<ID3D11Device> pDevice;
 	Microsoft::WRL::ComPtr<IDXGISwapChain> pSwap;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext> pContext;

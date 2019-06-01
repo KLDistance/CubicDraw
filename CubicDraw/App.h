@@ -8,6 +8,7 @@
 #include "ExpandingImGui.h"
 #include "Lottery.h"
 #include "OpenXLSX\OpenXLSX.h"
+#include "Surface.h"
 
 class App
 {
@@ -21,12 +22,21 @@ public:
 	void LotteryPart();
 	// loading sub thread function
 	static DWORD __stdcall LoadingThread(LPVOID lpParameters);
+	// play audio
+	static DWORD __stdcall PlayAudio(LPVOID lpParameters);
 
 	Window wnd;
 	WndTimer timer;
 	WndTimer runtimer;
 	ImguiManager imgui;
 	HANDLE hLoadingThread;
+	HANDLE hAudioThread;
+	HANDLE hAudioNotifier;
+
+	// logo1 texture
+	ID3D11ShaderResourceView *pLogo1ShaderResourceView = nullptr;
+	ID3D11ShaderResourceView *pLogo2ShaderResourceView = nullptr;
+	ID3D11ShaderResourceView *pLogo3ShaderResourceView = nullptr;
 	
 	// lottery machine
 	Lottery *lottMachine = nullptr;
@@ -37,14 +47,22 @@ public:
 	// name array without check
 	std::vector<std::string> nameList;
 
-	// states, 0 is idle, 1 is rotating, 2 is font display
+	// logo state
+	int logoState = 0;
+	// states, 0 is preload, 1 is idle, 2 is rotating, 3 is font display
 	int state = 0;
+	// audio pick indicator
+	int audioPick = 1;
+	// temp name
 	std::string tmpName;
 
 	std::vector<std::unique_ptr<class Drawable>> drawables;
 	static constexpr size_t nDrawables = 128;
 	Camera cam;
 	PointLight light;
+
+	// logo timing
+	const float logoSuspensionTiming = 6.0f;
 
 	// control speed
 	float speed_factor = 0.8f;
@@ -56,6 +74,6 @@ public:
 	const float ElapseMs = 6.0f;
 
 	// transition blank timing
-	const float transitionBlankTiming = 6.0f;
+	const float transitionBlankTiming = 2.0f;
 };
 

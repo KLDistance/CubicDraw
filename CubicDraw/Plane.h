@@ -11,8 +11,8 @@ public:
 	static IndexedTriangleList<V> MakeTesselated(int divisions_x, int divisions_y)
 	{
 		namespace dx = DirectX;
-		assert(divisions_x);
-		assert(divisions_y);
+		assert(divisions_x >= 1);
+		assert(divisions_y >= 1);
 
 		constexpr float width = 2.0f;
 		constexpr float height = 2.0f;

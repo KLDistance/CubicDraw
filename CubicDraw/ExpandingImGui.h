@@ -15,7 +15,7 @@ private:
 	float presSizeY = 0.0f;
 
 	// single font size
-	const float fontSize = 70.0f;
+	const float fontSize = 80.0f;
 	float lastFontX = 0.0f;
 	float lastFontY = 0.0f;
 

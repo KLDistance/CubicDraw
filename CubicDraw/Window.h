@@ -52,6 +52,7 @@ public:
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
+	HWND GetWindowHandle();
 	void SetTitle(const std::string& title);
 	static std::optional<int> ProcessMessages();
 	Graphics& Gfx();

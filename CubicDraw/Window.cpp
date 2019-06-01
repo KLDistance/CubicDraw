@@ -60,6 +60,7 @@ Window::Window(int width, int height, const char *name) : width(width), height(h
 		nullptr, nullptr, Window::WindowClass::GetInstance(), this
 	);
 	ShowWindow(this->hwnd, SW_SHOWDEFAULT);
+	UpdateWindow(this->hwnd);
 	// init ImGui Win32 Impl
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -75,6 +76,11 @@ Window::~Window()
 {
 	ImGui_ImplWin32_Shutdown();
 	DestroyWindow(this->hwnd);
+}
+
+HWND Window::GetWindowHandle()
+{
+	return this->hwnd;
 }
 
 void Window::SetTitle(const std::string& title)

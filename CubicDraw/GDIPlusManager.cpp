@@ -33,3 +33,19 @@ GDIPlusManager::~GDIPlusManager()
 		Gdiplus::GdiplusShutdown(token);
 	}
 }
+
+void GDIPlusManager::DrawImageFromFile(HWND hwnd, const wchar_t * filePath)
+{
+	Gdiplus::Image image(filePath);
+	HDC screenDC = GetDC(hwnd);
+	HDC memDC;
+	Gdiplus::Graphics graphics(memDC);
+	memDC = CreateCompatibleDC(screenDC);
+	graphics.DrawImage(&image, 0, 0, DISPLAY_SCREENWIDTH, DISPLAY_SCREENHEIGHT);
+	HBITMAP memBitmap = CreateCompatibleBitmap(
+		screenDC, DISPLAY_SCREENWIDTH, DISPLAY_SCREENHEIGHT
+	);
+	SelectObject(memDC, memBitmap);
+	BitBlt(screenDC, 0, 0, DISPLAY_SCREENWIDTH, DISPLAY_SCREENHEIGHT, memDC, 0, 0, SRCCOPY);
+	UpdateWindow(hwnd);
+}

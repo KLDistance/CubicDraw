@@ -52,6 +52,7 @@ DWORD __stdcall Lottery::RefreshNameList(LPVOID lpParameters)
 	Lottery *pLottery = (Lottery*)lpParameters;
 	while (true)
 	{
+		pLottery->hListRefreshNotifier = ::CreateEvent(0, 0, 0, 0);
 		::WaitForSingleObject(pLottery->hListRefreshNotifier, INFINITE);
 		if (pLottery->terminate) break;
 		for (int i = pLottery->nameNum - 1; i >= 0; i--)
