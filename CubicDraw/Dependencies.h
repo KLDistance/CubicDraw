@@ -114,6 +114,9 @@
 
 #endif
 
+// compiled resources
+#include "resource.h"
+
 // DirectX 11 SDK include and library files
 #ifdef __USE_DIRECTX11_SDK__
 

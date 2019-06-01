@@ -33,11 +33,14 @@ SkinnedBox::SkinnedBox(
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Image\\cube.png")));
 
-		auto pvs = std::make_unique<VertexShader>(gfx, L"TextureVS.cso");
+		// use TextureVS.cso
+		auto pvs = std::make_unique<VertexShader>(gfx, L"Shaders\\TextureVS.cso");
 		auto pvsbc = pvs->GetBytecode();
 
 		AddStaticBind(std::move(pvs));
-		AddStaticBind(std::make_unique<PixelShader>(gfx, L"TexturePS.cso"));
+
+		// use TexturePS.cso
+		AddStaticBind(std::make_unique<PixelShader>(gfx, L"Shaders\\TexturePS.cso"));
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
 
 		const std::vector<D3D11_INPUT_ELEMENT_DESC> ied = 

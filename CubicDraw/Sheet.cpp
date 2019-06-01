@@ -50,11 +50,13 @@ Sheet::Sheet(Graphics& gfx,
 
 		AddStaticBind(std::make_unique<Sampler>(gfx));
 
-		auto pvs = std::make_unique<VertexShader>(gfx, L"TextureVS.cso");
+		// use TextureVS.cso
+		auto pvs = std::make_unique<VertexShader>(gfx, L"Shaders\\TextureVS.cso");
 		auto pvsbc = pvs->GetBytecode();
 		AddStaticBind(std::move(pvs));
 
-		AddStaticBind(std::make_unique<PixelShader>(gfx, L"TexturePS.cso"));
+		// use TexturePS.cso
+		AddStaticBind(std::make_unique<PixelShader>(gfx, L"Shaders\\TexturePS.cso"));
 
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
 

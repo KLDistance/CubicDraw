@@ -307,7 +307,7 @@ DWORD __stdcall App::LoadingThread(LPVOID lpParameters)
 	// loading fonts
 	pApp->expandingImGui = new ExpandingImGui();
 	// loading lottery
-	pApp->lottMachine = new Lottery("WorkBooks\\NameTest.xlsx");
+	pApp->lottMachine = new Lottery("WorkBooks\\NameList.xlsx");
 	
 	return 0;
 }

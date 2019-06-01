@@ -3,7 +3,6 @@
 #include "WinException.h"
 #include "Graphics.h"
 #include "Keyboard.h"
-#include "resource.h"
 #include "Mouse.h"
 
 class Window
