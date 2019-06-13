@@ -85,36 +85,6 @@
 // choose directx 11 platform
 #define __USE_DIRECTX11_SDK__
 
-// DirectX 9 SDK include and library files
-#ifdef __USE_DIRECTX9_SDK__
-
-// include the DirectX9 auxiliary files
-#include "..//..//Dependencies//Include//d3d9.h"
-#include "..//..//Dependencies//Include//d3dx9.h"
-#include "..//..//Dependencies//Include//dinput.h"
-#include "..//..//Dependencies//Include//XInput.h"
-#include "..//..//Dependencies//Include//dsound.h"
-
-// load the DirectX9 auxiliary statc-linked libraries
-
-#if defined (_WIN64)
-#pragma comment(lib, "..//..//Dependencies//Lib//x64//dxguid.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x64//d3d9.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x64//d3dx9.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x64//dinput8.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x64//xinput.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x64//dsound.lib")
-#elif defined (_WIN32)
-#pragma comment(lib, "..//..//Dependencies//Lib//x86//dxguid.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x86//d3d9.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x86//d3dx9.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x86//dinput8.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x86//xinput.lib")
-#pragma comment(lib, "..//..//Dependencies//Lib//x86//dsound.lib")
-#endif
-
-#endif
-
 // compiled resources
 #include "resource.h"
 
@@ -134,9 +104,9 @@
 #pragma comment(lib, "D3DCompiler.lib")
 
 #if defined (_WIN64)
-#pragma comment(lib, "Dependencies//Lib//x64//d3dx11.lib")
+#pragma comment(lib, "Dependencies//Lib//DXx64//d3dx11.lib")
 #elif defined (_WIN32)
-#pragma comment(lib, "Dependencies//Lib//x86//d3dx11.lib")
+#pragma comment(lib, "Dependencies//Lib//DXx86//d3dx11.lib")
 #endif
 
 #endif
