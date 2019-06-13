@@ -3,7 +3,7 @@
 ExpandingImGui::ExpandingImGui()
 {
 	ImGuiIO &io = ImGui::GetIO();
-	io.Fonts->AddFontFromFileTTF("Fonts\\SIMYOU.TTF", this->fontSize, 
+	io.Fonts->AddFontFromFileTTF("Fonts\\ARIALUNI.TTF", this->fontSize, 
 		NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
 }
 
