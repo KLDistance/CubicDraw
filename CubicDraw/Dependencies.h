@@ -62,6 +62,7 @@
 #include <algorithm>
 #include <iostream>
 #include <optional>
+#include <fstream>
 #include <sstream>
 #include <iomanip>
 #include <bitset>

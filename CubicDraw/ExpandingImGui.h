@@ -24,4 +24,5 @@ private:
 public:
 	ExpandingImGui();
 	void TriggerCenterImGui(std::string contents, UINT isTrigger);
+	void TriggerImGui(std::string contents, UINT isTrigger);
 };

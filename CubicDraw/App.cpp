@@ -200,7 +200,7 @@ void App::LotteryPart()
 			this->state = 1;
 			this->runtimer.Mark();
 		}
-		this->expandingImGui->TriggerCenterImGui("", 0);
+		this->expandingImGui->TriggerImGui("", 0);
 	}
 	case 1:
 	{
@@ -222,7 +222,29 @@ void App::LotteryPart()
 			this->tmpName = this->lottMachine->GetNextName();
 			this->wnd.kbd.ClearKeyState();
 		}
-		this->expandingImGui->TriggerCenterImGui("", 0);
+		else if (
+			this->wnd.kbd.KeyIsPressed('1') || 
+			this->wnd.kbd.KeyIsPressed('2') || 
+			this->wnd.kbd.KeyIsPressed('3')
+			)
+		{
+			if (this->wnd.kbd.KeyIsPressed('1'))
+			{
+				this->lottMachine->SetPrizeLevel(1);
+			}
+			else if (this->wnd.kbd.KeyIsPressed('2'))
+			{
+				this->lottMachine->SetPrizeLevel(2);
+			}
+			else
+			{
+				this->lottMachine->SetPrizeLevel(3);
+			}
+			this->state = 2;
+			this->tmpName = this->lottMachine->GetNextBunch();
+			this->wnd.kbd.ClearKeyState();
+		}
+		this->expandingImGui->TriggerImGui("", 0);
 		break;
 	}
 	case 2:
@@ -255,6 +277,15 @@ void App::LotteryPart()
 		{
 			this->accelerateIncrement = -this->accelerateIncrementConst;
 		}
+		if (
+			this->wnd.kbd.KeyIsPressed(VK_SPACE) || 
+			this->wnd.kbd.KeyIsPressed('1') || 
+			this->wnd.kbd.KeyIsPressed('2') ||
+			this->wnd.kbd.KeyIsPressed('3')
+			)
+		{
+			this->wnd.kbd.ClearKeyState();
+		}
 		// decrement beyond min
 		if (this->accelerate <= this->accelerateMin)
 		{
@@ -262,7 +293,7 @@ void App::LotteryPart()
 			this->state = 3;
 		}
 		this->accelerate += this->accelerateIncrement;
-		this->expandingImGui->TriggerCenterImGui("", 0);
+		this->expandingImGui->TriggerImGui("", 0);
 		break;
 	}
 	case 3:
@@ -281,12 +312,21 @@ void App::LotteryPart()
 		this->light.Draw(this->wnd.Gfx());
 
 		// font display
-		this->expandingImGui->TriggerCenterImGui(this->tmpName, 1);
+		this->expandingImGui->TriggerImGui(this->tmpName, 1);
 
 		// exit font display
-		if (this->wnd.kbd.KeyIsPressed(VK_SPACE))
+		if (this->wnd.kbd.KeyIsPressed(VK_RETURN))
 		{
 			this->state = 0;
+			this->wnd.kbd.ClearKeyState();
+		}
+		if (
+			this->wnd.kbd.KeyIsPressed(VK_SPACE) ||
+			this->wnd.kbd.KeyIsPressed('1') ||
+			this->wnd.kbd.KeyIsPressed('2') ||
+			this->wnd.kbd.KeyIsPressed('3')
+			)
+		{
 			this->wnd.kbd.ClearKeyState();
 		}
 		break;
@@ -308,6 +348,7 @@ DWORD __stdcall App::LoadingThread(LPVOID lpParameters)
 	pApp->expandingImGui = new ExpandingImGui();
 	// loading lottery
 	pApp->lottMachine = new Lottery("WorkBooks\\NameList.xlsx");
+	pApp->lottMachine->LoadLotteryConfig("WorkBooks\\Config.ini");
 	
 	return 0;
 }

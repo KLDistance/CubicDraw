@@ -66,12 +66,12 @@ public:
 
 	// control speed
 	float speed_factor = 0.8f;
-	float accelerate = 1.0f;
-	const float accelerateIncrementConst = 0.045f;
+	float accelerate = 0.8f;
+	const float accelerateIncrementConst = 0.035f;
 	float accelerateIncrement = accelerateIncrementConst;
 	const float accelerateMax = 8.00f;
 	const float accelerateMin = 0.4f;
-	const float ElapseMs = 1.5f;
+	const float ElapseMs = 3.0f;
 
 	// transition blank timing
 	const float transitionBlankTiming = 2.0f;
