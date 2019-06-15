@@ -32,10 +32,8 @@ void PointLight::SpawnControlWindow() noexcept
 		}
 	}
 }
-
-void PointLight::Reset() noexcept
-{
-	this->cbData = {
+/*
+this->cbData = {
 		{ 0.0f,0.0f,0.0f },
 		{ 0.05f,0.05f,0.05f },
 		{ 1.0f,1.0f,1.0f },
@@ -43,6 +41,18 @@ void PointLight::Reset() noexcept
 		0.9f,
 		0.040f,
 		0.0045f,
+	};
+*/
+void PointLight::Reset() noexcept
+{
+	this->cbData = {
+		{ 0.0f,0.0f,0.0f },
+		{ 0.1f,0.1f,0.1f },
+		{ 1.0f,1.0f,1.0f },
+		1.4f,
+		0.75f,
+		0.030f,
+		0.0035f,
 	};
 }
 
